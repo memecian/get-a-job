@@ -13,12 +13,21 @@
 
 int main(void) {
     FILE *script = fopen("SCRIPT.txt", "r");
+    int line_num = 0;
+
+    char* char_name_buffer;
+    char* char_message_buffer; 
 
     if (script == NULL) {
         printf("Script is missing yo.\n");
         return 1;
     }
     printf("%s%s", white_fg, black_bg);
+
+    do {
+
+    } while ();
+
 
     fclose(script);
     return 1;
