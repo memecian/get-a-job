@@ -13,10 +13,10 @@
 
 int main(void) {
     FILE *script = fopen("SCRIPT.txt", "r");
-    int line_num = 0;
 
-    char* char_name_buffer;
-    char* char_message_buffer; 
+    char* name_buffer;
+    char* message_buffer; 
+    char char_buf = 0;
 
     if (script == NULL) {
         printf("Script is missing yo.\n");
@@ -25,16 +25,29 @@ int main(void) {
     printf("%s%s", white_fg, black_bg);
 
     do {
+        
+        char_buf = fgetc(script);
+        // separate character name from line
+        for (int i = 0; char_buf != ' '; i++) {
+            (name_buffer + i) = char_buf;
+        }
+        
+        //here comes the line 
+        for (int i = 0; char_buf != '\n'; i++) {
+            (message_buffer + i) = char_buf;
+        }
 
-    } while ();
+        talk(name_buffer, message_buffer);
 
+    } while (char_buf != EOF);
 
+    // we're done here
     fclose(script);
-    return 1;
+    return EXIT_SUCCESS;
 }
 
 int move(int direction, int distance) {
-    
+    // move cursor or something idk
     return 0;
 }
 
