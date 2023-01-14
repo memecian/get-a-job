@@ -15,34 +15,51 @@ int main(void) {
     FILE *script = fopen("SCRIPT.txt", "r");
 
     char* name_buffer;
-    char* message_buffer; 
+    char* message_buffer;
     char char_buf = 0;
+    int name_done = 0;
 
     if (script == NULL) {
         printf("Script is missing yo.\n");
         return 1;
     }
+    // fprintf(stderr, "Script loaded.\n");
+
     printf("%s%s", white_fg, black_bg);
 
+    int i = 0;
+    // fprintf(stderr, "Starting main loop.\n");
     do {
-        
-        char_buf = fgetc(script);
+
+        name_buffer = malloc(20);
+        message_buffer = malloc(256); 
         // separate character name from line
-        for (int i = 0; char_buf != ' '; i++) {
-            (name_buffer + i) = char_buf;
+        //fprintf(stderr, "Reading character name.\n");
+        for (i = 0; char_buf != ':'; i++) {
+            char_buf = fgetc(script);
+            if (char_buf == EOF) goto end;
+            *(name_buffer + i) = char_buf;
         }
+        *(name_buffer + i++) = '\0';
         
         //here comes the line 
-        for (int i = 0; char_buf != '\n'; i++) {
-            (message_buffer + i) = char_buf;
+        //fprintf(stderr, "Reading message.\n");
+        for (i = 0; char_buf != '\n'; i++) {
+            char_buf = fgetc(script);
+            *(message_buffer + i) = char_buf;
         }
+        *(message_buffer + i++) = '\0';
+        //fprintf(stderr, "Message read.\n");
 
         talk(name_buffer, message_buffer);
-
+end:
+        free(name_buffer);
+        free(message_buffer);
     } while (char_buf != EOF);
 
     // we're done here
     fclose(script);
+    printf("%s", no_fmt);
     return EXIT_SUCCESS;
 }
 
@@ -51,9 +68,8 @@ int move(int direction, int distance) {
     return 0;
 }
 
-int talk(char* name, char* message) {
-    printf(bold);
-    printf("%s%s: ", bold, name);
+int talk(char* name, char* message) {;
+    printf("%s%s%s", bold, white_fg, name);
     printf("%s%s%s\n", reset_txt , blue_fg, message);
     return 0;
 }
