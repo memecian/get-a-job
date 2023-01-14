@@ -30,12 +30,14 @@ int main(void) {
     int i = 0;
     // fprintf(stderr, "Starting main loop.\n");
     do {
+
         name_buffer = malloc(20);
         message_buffer = malloc(256); 
         // separate character name from line
         //fprintf(stderr, "Reading character name.\n");
         for (i = 0; char_buf != ':'; i++) {
             char_buf = fgetc(script);
+            if (char_buf == EOF) goto end;
             *(name_buffer + i) = char_buf;
         }
         *(name_buffer + i++) = '\0';
@@ -48,7 +50,9 @@ int main(void) {
         }
         *(message_buffer + i++) = '\0';
         //fprintf(stderr, "Message read.\n");
+
         talk(name_buffer, message_buffer);
+end:
         free(name_buffer);
         free(message_buffer);
     } while (char_buf != EOF);
