@@ -45,7 +45,7 @@ int main(void) {
     Mix_PlayMusic(music, 1);
     printf("%sYou enter a bathroom in the UNATCO HQ. The door closes behind you.%s\n", italics, reset_txt);
     printf("%s%s", white_fg, black_bg);
-    sleep(3);
+    sleep(15);
     int i = 0;
     // fprintf(stderr, "Starting main loop.\n");
     do {
