@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "maybe.h"
-#include <unistd.h>
 #include <SDL2/SDL_mixer.h>
+
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif
 
 #define white_fg "\033[37m"
 #define blue_fg "\033[34m"
@@ -11,7 +16,6 @@
 #define italics "\033[3m"
 #define reset_txt "\033[0m\033[40m"
 #define no_fmt "\033[0m"
-
 
 
 int main(void) {
@@ -44,11 +48,25 @@ int main(void) {
 
     Mix_PlayMusic(music, 1);
     printf("%sYou enter a bathroom in the UNATCO HQ. The door closes behind you.\n\n", italics);
+    #ifdef _WIN32
+    Sleep(10000);
+    #else
     sleep(10);
+    #endif
+    
     printf("You walk up to the mirror and see a reflection of yourself.\n\n");
+    #ifdef _WIN32
+    Sleep(10000);
+    #else
     sleep(10);
+    #endif
+    
     printf("You look at the reflection and admire your neat sunglasses,\n\nwhen suddenly it starts speaking to you...%s\n\n", reset_txt);
+    #ifdef _WIN32
+    Sleep(5000);
+    #else
     sleep(5);
+    #endif
     printf("%s%s", white_fg, black_bg);
     int i = 0;
     // fprintf(stderr, "Starting main loop.\n");
@@ -75,7 +93,11 @@ int main(void) {
         //fprintf(stderr, "Message read.\n");
 
         talk(name_buffer, message_buffer);
+        #ifdef _WIN32
+        Sleep(3000);
+        #else
         sleep(3);
+        #endif
 end:
         free(name_buffer);
         free(message_buffer);
