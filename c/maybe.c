@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "maybe.h"
+#include <pthread.h>
+#include <SDL2/SDL_mixer.h>
 
 #define white_fg "\033[37m"
 #define blue_fg "\033[34m"
@@ -12,6 +14,8 @@
 
 
 int main(void) {
+
+
     FILE *script = fopen("SCRIPT.txt", "r");
 
     char* name_buffer;
@@ -71,5 +75,16 @@ int move(int direction, int distance) {
 int talk(char* name, char* message) {;
     printf("%s%s%s", bold, white_fg, name);
     printf("%s%s%s\n", reset_txt , blue_fg, message);
+    return 0;
+}
+
+int play_music(char* filename) {
+    
+    
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        printf("Error initializing SDL_mixer: %s\n", Mix_GetError());
+        return 1;
+    }
+
     return 0;
 }
