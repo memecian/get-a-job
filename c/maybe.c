@@ -43,9 +43,13 @@ int main(void) {
     }
 
     Mix_PlayMusic(music, 1);
-    printf("%sYou enter a bathroom in the UNATCO HQ. The door closes behind you.%s\n", italics, reset_txt);
+    printf("%sYou enter a bathroom in the UNATCO HQ. The door closes behind you.\n\n", italics);
+    sleep(10);
+    printf("You walk up to the mirror and see a reflection of yourself.\n\n");
+    sleep(10);
+    printf("You look at the reflection and admire your neat sunglasses,\nwhen suddenly it starts speaking to you%s\n\n", reset_txt);
+    sleep(5);
     printf("%s%s", white_fg, black_bg);
-    sleep(15);
     int i = 0;
     // fprintf(stderr, "Starting main loop.\n");
     do {
@@ -71,14 +75,17 @@ int main(void) {
         //fprintf(stderr, "Message read.\n");
 
         talk(name_buffer, message_buffer);
-        sleep(2);
+        sleep(3);
 end:
         free(name_buffer);
         free(message_buffer);
     } while (char_buf != EOF);
 
     // we're done here
-    Mix_FadeOutMusic(2000);
+    Mix_FadeOutMusic(3000);
+    while (Mix_PlayingMusic()) {
+        // Wait for music to finish
+    }
     Mix_CloseAudio();
     fclose(script);
     printf("%s", no_fmt);
