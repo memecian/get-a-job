@@ -47,7 +47,7 @@ int main(void) {
     sleep(10);
     printf("You walk up to the mirror and see a reflection of yourself.\n\n");
     sleep(10);
-    printf("You look at the reflection and admire your neat sunglasses,\nwhen suddenly it starts speaking to you%s\n\n", reset_txt);
+    printf("You look at the reflection and admire your neat sunglasses,\n\nwhen suddenly it starts speaking to you...%s\n\n", reset_txt);
     sleep(5);
     printf("%s%s", white_fg, black_bg);
     int i = 0;
